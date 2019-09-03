@@ -1,0 +1,149 @@
+openapi: 3.0.1
+info:
+  title: Swagger Rest Article
+  description: This is the swagger file that goes with our server code
+  version: 1.0.0
+servers:
+- url: ///api
+paths:
+  /analysisgroup:
+    post:
+      tags:
+      - Analysis Groups
+      summary: blup
+      description: Create a new analysis group
+      operationId: pilotpoint.creategroup
+      requestBody:
+        description: group to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/anagroups'
+        required: true
+      responses:
+        201:
+          description: Successfully created Analysis Group
+          content: {}
+  /analysisstep:
+    post:
+      tags:
+      - Analysis Steps
+      summary: blup
+      description: Create a new analysis step
+      operationId: pilotpoint.createanastep
+      requestBody:
+        description: step to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ppsteps'
+        required: true
+      responses:
+        201:
+          description: Successfully created CP step in list
+          content: {}
+  /pilotpoint:
+    get:
+      tags:
+      - PilotPoint
+      summary: Read the entire list of pilotpoint
+      description: Read the list of pilotpoint
+      operationId: pilotpoint.read_all
+      responses:
+        200:
+          description: Successfully read pilotpoint list operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pilotpoints'
+
+    post:
+      tags:
+      - PilotPoint
+      summary: Create a pilotpoint and add it to the pilotpoint list
+      description: Create a new pilotpoint in the pilotpoint list
+      operationId: pilotpoint.createpp
+      requestBody:
+        description: pilotpoint to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/pilotpoints'
+        required: true
+      responses:
+        201:
+          description: Successfully created pilotpoint in list
+          content: {}
+  /pilotpoint/{ppname}:
+    get:
+      tags:
+      - PilotPoint
+      summary: Read one pilotpoint from the pilotpoint list
+      description: Read one pilotpoint from the pilotpoint list
+      operationId: pilotpoint.read_one
+      parameters:
+      - name: ppname
+        in: path
+        description: Last name of the pilotpoint to get from the list
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successfully read pilotpoint from pilotpoint list operation
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas:
+    anagroups:
+      type: object
+      properties:
+        groupname: 
+          type: string
+          description: Name of the Analysis Group
+        pilotpoints:
+         type: array
+         items:
+          type: string
+    pilotpoints:
+      type: object
+      properties:
+        ppname:
+          type: string
+          description: Name of pilotpoint to create
+        file_id:
+          type: string
+          description: File ID of pilotpoint to create
+    ppsteps:
+      type: object
+      properties:
+        ppname:
+          type: string
+          description: nn
+        steps:
+          type: array
+          items:
+            type: object
+            properties:
+              stepid:
+                type: integer
+                description: nn
+              analysis_name:
+                type: string
+                description: nn
+              ainit:
+                type: number
+                description: Initial crack length
+              end:
+                type: string
+                description: Extraction point of end crack length
+              nfinal:
+                type: integer
+                description: nn
+            required: 
+              - stepid
+              - analysis_name
+              - end
+      
